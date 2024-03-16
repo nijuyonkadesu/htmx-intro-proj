@@ -17,7 +17,7 @@
 {{ end }}
 
 {{ block "form" . }}
-    <form hx-post="/contacts">
+    <form hx-swap="outerHTML" hx-post="/contacts" hx-target="#contacts">
         name: <input type="text" name="name"/>
         email: <input type="text" name="email"/>
         <button type="submit">Add</button>
@@ -25,7 +25,7 @@
 {{ end }}
 
 {{ block "display" . }}
-    <div style="display: flex; flex-direction: column;">
+    <div id="contacts" style="display: flex; flex-direction: column;">
         {{ range .Contacts }} 
             <div>
                 <span>{{ .Name }}</span>
@@ -41,3 +41,4 @@
 
 
 <!-- hx-target: fetches result and appendes it in the target div / css / this -->
+<!-- hx-retarget: possible to do error handlings -->
