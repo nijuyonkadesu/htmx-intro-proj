@@ -27,7 +27,7 @@
 {{ end }}
 
 {{ block "form" . }}
-    <form hx-swap="outerHTML" hx-post="/contacts" hx-target="#contacts">
+    <form hx-swap="outerHTML" hx-post="/contacts" >
         name: <input 
             {{ if .Values.name }} value="{{ .Values.name }}" {{ end }} 
             type="text" name="name"/>
@@ -47,11 +47,21 @@
 {{ block "display" . }}
     <div id="contacts" style="display: flex; flex-direction: column;">
         {{ range .Contacts }} 
-            <div>
-                <span>{{ .Name }}</span>
-                <span>{{ .Email }}</span>
-            </div>
+            {{ template "contact" . }}
         {{ end }}
+    </div>
+{{ end }}
+
+{{ block "contact" . }}
+    <div>
+        <span>{{ .Name }}</span>
+        <span>{{ .Email }}</span>
+    </div>
+{{ end }}
+
+{{ block "oob-contact" . }}
+    <div id="contacts" hx-swap-oob="afterbegin">
+        {{ template "contact" . }} 
     </div>
 {{ end }}
 
